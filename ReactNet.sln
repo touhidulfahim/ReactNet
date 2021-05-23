@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactNet.Entities", "ReactN
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactNet.Common", "ReactNet.Common\ReactNet.Common.csproj", "{E45B54BC-B925-4EDA-8A61-55D6BD423FB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactNet.API", "ReactNet.API\ReactNet.API.csproj", "{D508528F-F782-43B3-9579-AD67B008C086}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactNet.API", "ReactNet.API\ReactNet.API.csproj", "{CE38D0DF-1C65-44E3-9F03-83AD22B9C037}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{E45B54BC-B925-4EDA-8A61-55D6BD423FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E45B54BC-B925-4EDA-8A61-55D6BD423FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E45B54BC-B925-4EDA-8A61-55D6BD423FB5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D508528F-F782-43B3-9579-AD67B008C086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D508528F-F782-43B3-9579-AD67B008C086}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D508528F-F782-43B3-9579-AD67B008C086}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D508528F-F782-43B3-9579-AD67B008C086}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE38D0DF-1C65-44E3-9F03-83AD22B9C037}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE38D0DF-1C65-44E3-9F03-83AD22B9C037}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE38D0DF-1C65-44E3-9F03-83AD22B9C037}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE38D0DF-1C65-44E3-9F03-83AD22B9C037}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

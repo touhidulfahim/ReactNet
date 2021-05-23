@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ReactNet.Entities.Models
 {
-    public class ProductModel
+    public class OrderDetailsModel
     {
 
     }
