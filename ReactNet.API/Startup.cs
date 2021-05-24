@@ -10,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using ReactNet.API.Extensions;
+using ReactNet.Data.Gateway;
 
 namespace ReactNet.API
 {
@@ -27,10 +30,14 @@ namespace ReactNet.API
         {
 
             services.AddControllers();
+            services.AddServices(Configuration);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReactNet.API", Version = "v1" });
             });
+
+            var connection = Configuration.GetConnectionString("DatabaseConnection");
+            services.AddDbContext<ReactNetDbContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,8 +49,8 @@ namespace ReactNet.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ReactNet.API v1"));
             }
-
             app.UseRouting();
+            
 
             app.UseAuthorization();
 
