@@ -13,6 +13,7 @@ namespace ReactNet.Data.Repository.Queries
     {
         private readonly ReactNetDbContext _context;
 
+
         public FoodQueries(ReactNetDbContext context)
         {
             _context = context;

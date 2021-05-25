@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { MyStore } from "./redux/store/Store";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { Container } from "@material-ui/core";
+import Header from "./layout/Header";
+import Body from "./layout/Body";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={MyStore}>
+      <BrowserRouter>
+        <Header />
+        <Container maxWidth="lg">
+          <Body />
+        </Container>
+      </BrowserRouter>
+    </Provider>
   );
-}
+};
 
 export default App;

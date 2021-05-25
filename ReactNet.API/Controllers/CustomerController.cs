@@ -12,41 +12,41 @@ namespace ReactNet.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FoodController : ControllerBase
+    public class CustomerController : ControllerBase
     {
-        private readonly IFoodCommand _command;
-        private readonly IFoodQueries _queries;
+        private readonly ICustomerCommand _command;
+        private readonly ICustomerQueries _queries;
 
-        public FoodController(IFoodCommand command, IFoodQueries queries)
+        public CustomerController(ICustomerCommand command, ICustomerQueries queries)
         {
             _command = command;
             _queries = queries;
         }
 
-        
+
         [HttpGet]
-        //[Route("GetFoodList")]
-        public async Task<IEnumerable<FoodModel>> GetFoodList()
+        public async Task<IEnumerable<CustomerModel>> CustomerList()
         {
-            return await _queries.GetFoodList();
+            return await _queries.GetCustomerList();
         }
 
 
         [HttpGet]
-        [Route("GetFood")]
-        public async Task<IActionResult> GetFood(long? id)
+        [Route("GetCustomer")]
+        public async Task<IActionResult> GetCustomer(long?id)
         {
             if (id==null)
             {
                 return NotFound();
             }
-            FoodModel food = await _queries.GetFoodById(id);
-            if (food==null)
+            CustomerModel customer = await _queries.GetCustomerById(id);
+            if (customer==null)
             {
                 return NotFound();
             }
-            return Ok(food);
+            return Ok(customer);
         }
+
 
     }
 }
