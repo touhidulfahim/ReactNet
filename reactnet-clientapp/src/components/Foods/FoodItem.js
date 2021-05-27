@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import * as actions from "../../redux/actionCreator/ActionCreator";
 import { connect } from "react-redux";
 import { Table } from "reactstrap";
+import FoodForm from "./FoodForm";
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     foodList: state.foodReducer.foods,
   };
@@ -34,9 +34,7 @@ const FoodItem = (props) => {
     <div>
       <div className="row col-md-12" style={{ marginTop: "50px" }}>
         <div className="col-md-4">
-          <form>
-            <h2>INPUT AREA</h2>
-          </form>
+          <FoodForm />
         </div>
         <div className="col-md-8">
           <Table className="table table-hover table-border table-sm">

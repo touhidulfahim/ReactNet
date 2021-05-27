@@ -9,7 +9,6 @@ export const ENDPIONTS = {
 
 export const createAPIEndpoint = (endpoint) => {
   let url = baseUrl + endpoint + "/";
-  console.log(url);
   return {
     fetchAll: () => axios.get(url),
     fetchById: (id) => axios.get(url + id),
@@ -18,15 +17,3 @@ export const createAPIEndpoint = (endpoint) => {
     delete: (id) => axios.delete(url + id),
   };
 };
-
-// export default {
-//   app(url = baseUrl + "food/") {
-//     return {
-//       fetchAll: () => axios.get(url),
-//       fetchById: (id) => axios.get(url + id),
-//       create: (newRecord) => axios.post(url, newRecord),
-//       update: (id, updatedRecord) => axios.put(url + id, updatedRecord),
-//       delete: (id) => axios.delete(url + id),
-//     };
-//   },
-// };

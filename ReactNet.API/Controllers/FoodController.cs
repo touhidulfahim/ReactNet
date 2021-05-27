@@ -23,7 +23,7 @@ namespace ReactNet.API.Controllers
             _queries = queries;
         }
 
-        
+
         [HttpGet]
         //[Route("GetFoodList")]
         public async Task<IEnumerable<FoodModel>> GetFoodList()
@@ -36,17 +36,30 @@ namespace ReactNet.API.Controllers
         [Route("GetFood")]
         public async Task<IActionResult> GetFood(long? id)
         {
-            if (id==null)
+            if (id == null)
             {
                 return NotFound();
             }
             FoodModel food = await _queries.GetFoodById(id);
-            if (food==null)
+            if (food == null)
             {
                 return NotFound();
             }
             return Ok(food);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(FoodModel food)
+        {
+            _command.SaveFood(food);
+            if (await _command.Commit())
+            {
+                return CreatedAtAction("GetFoodList", new { id = food.SysId }, food);
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError, "Something Went Wrong");
+
+        }
+
 
     }
 }

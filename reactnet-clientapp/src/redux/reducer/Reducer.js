@@ -12,6 +12,11 @@ export const foodReducer = (state = INITIAL_STATE, action) => {
         ...state,
         foods: [...action.payload],
       };
+    case actionTypes.CREATE:
+      return {
+        ...state,
+        foods: [...state.foods, action.payload],
+      };
     default:
       return state;
   }

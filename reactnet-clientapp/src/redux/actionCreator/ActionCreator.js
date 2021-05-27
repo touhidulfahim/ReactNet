@@ -27,6 +27,20 @@ export const getFoodList = () => {
 };
 //Product List End
 
+export const addFood = (data, onSuccess) => (dispatch) => {
+  //data = formateData(data);
+  createAPIEndpoint(ENDPIONTS.FOOD)
+    .create(data)
+    .then((response) => {
+      dispatch({
+        type: actionTypes.CREATE,
+        payload: response.data,
+      });
+      onSuccess();
+    })
+    .catch((err) => console.log(err));
+};
+
 //Customer List Start
 export const getCustomers = (customers) => {
   return {

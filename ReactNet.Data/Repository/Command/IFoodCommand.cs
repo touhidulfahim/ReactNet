@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReactNet.Entities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace ReactNet.Data.Repository.Command
 {
     public interface IFoodCommand
     {
+        void SaveFood(FoodModel food);
+        Task<bool> Commit();
     }
 }
