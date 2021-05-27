@@ -1,20 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import * as actions from "../../redux/actionCreator/ActionCreator";
 import { connect } from "react-redux";
 import { Table } from "reactstrap";
 import FoodForm from "./FoodForm";
+import { useToasts } from "react-toast-notifications";
 
-const mapStateToProps = (state) => {
-  return {
-    foodList: state.foodReducer.foods,
-  };
-};
+const mapStateToProps = (state) => ({
+  foodList: state.foodReducer.foods,
+});
 
 const mapActionToProps = {
   fetchFoods: actions.getFoodList,
+  deleteRecord: actions.deleteFood,
 };
 
-const FoodItem = (props) => {
+const FoodItem = ({ classess, ...props }) => {
+  const [currentId, setCurrentId] = useState(0);
+
   useEffect(() => {
     props.fetchFoods();
   }, []);
@@ -23,18 +25,20 @@ const FoodItem = (props) => {
     alert("details" + key);
   };
 
-  const updateRecord = (key) => {
-    alert("update" + key);
+  const { addToast } = useToasts();
+
+  const removeFood = (id) => {
+    if (window.confirm("Are you sure to delete this record?"))
+      props.deleteRecord(id, () =>
+        addToast("Deleted successfully", { appearance: "info" })
+      );
   };
 
-  const deleteRecord = (key) => {
-    alert("delete" + key);
-  };
   return (
     <div>
       <div className="row col-md-12" style={{ marginTop: "50px" }}>
         <div className="col-md-4">
-          <FoodForm />
+          <FoodForm {...{ currentId, setCurrentId }} />
         </div>
         <div className="col-md-8">
           <Table className="table table-hover table-border table-sm">
@@ -48,7 +52,7 @@ const FoodItem = (props) => {
             <tbody>
               {props.foodList.map((record, index) => {
                 return (
-                  <tr key={record.sysId}>
+                  <tr key={index}>
                     <td>{record.foodName}</td>
                     <td>{record.price}</td>
                     <td>
@@ -61,14 +65,14 @@ const FoodItem = (props) => {
                       |
                       <a
                         className="btn btn-warning btn-sm"
-                        onClick={(key) => updateRecord(record.sysId)}
+                        onClick={() => setCurrentId(record.sysId)}
                       >
                         <i className="fa fa-pencil-square-o fa-1x"></i>
                       </a>
                       |
                       <a
                         className="btn btn-danger btn-sm"
-                        onClick={(key) => deleteRecord(record.sysId)}
+                        onClick={() => removeFood(record.sysId)}
                       >
                         <i
                           className="fa fa-trash-o fa-1x"

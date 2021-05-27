@@ -17,6 +17,18 @@ export const foodReducer = (state = INITIAL_STATE, action) => {
         ...state,
         foods: [...state.foods, action.payload],
       };
+    case actionTypes.UPDATE:
+      return {
+        ...state,
+        foods: state.foods.map((x) =>
+          x.sysId == action.payload.id ? action.payload : x
+        ),
+      };
+    case actionTypes.DELETE:
+      return {
+        ...state,
+        foods: state.foods.filter((x) => x.sysId != action.payload),
+      };
     default:
       return state;
   }

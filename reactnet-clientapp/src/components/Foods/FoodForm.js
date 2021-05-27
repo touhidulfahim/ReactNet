@@ -1,28 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   Form,
   FormGroup,
   Label,
   Input,
-  FormText,
   FormFeedback,
 } from "reactstrap";
 import * as actions from "../../redux/actionCreator/ActionCreator";
+import ControlForm from "../ControlForm";
 import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
-import { Grid, TextField, FormHelperText } from "@material-ui/core";
-import { ErrorSharp } from "@material-ui/icons";
 
-const mapStateToProps = (state) => {
-  return {
-    foodList: state.foodReducer.foods,
-  };
-};
+const mapStateToProps = (state) => ({
+  foodList: state.foodReducer.foods,
+});
 
 const mapActionToProps = {
   createFood: actions.addFood,
-  //updateDCandidate: actions.update,
+  editFood: actions.updateFood,
 };
 
 const initialFieldValues = {
@@ -30,11 +26,15 @@ const initialFieldValues = {
   price: "",
 };
 
-const FoodForm = (props) => {
-  const { addToast } = useToasts();
+const pStyle = {
+  "&input::-webkit-outer-spin-button, &input::-webkit-inner-spin-button": {
+    "-webkit-appearance": "none",
+    margin: 0,
+  },
+};
 
-  const [inputVal, setInputVal] = useState(initialFieldValues);
-  const [errors, setErrors] = useState({});
+const FoodForm = ({ classes, ...props }) => {
+  const { addToast } = useToasts();
 
   const validate = (fieldValues = inputVal) => {
     let temp = { ...errors };
@@ -51,28 +51,14 @@ const FoodForm = (props) => {
       return Object.values(temp).every((x) => x == "");
   };
 
-  const inputChangeHandler = (e) => {
-    const { name, value } = e.target;
-    const fieldValue = { [name]: value };
-    setInputVal({
-      ...inputVal,
-      ...fieldValue,
-    });
-    validate(fieldValue);
-  };
-
-  const resetForm = () => {
-    setInputVal({
-      ...initialFieldValues,
-    });
-    setErrors({});
-    //setCurrentId(0);
-  };
-
-  // const onSuccess = () => {
-  //   resetForm();
-  //   addToast("Submitted successfully", { appearance: "success" });
-  // };
+  const {
+    inputVal,
+    setInputVal,
+    errors,
+    setErrors,
+    inputChangeHandler,
+    resetForm,
+  } = ControlForm(initialFieldValues, validate, props.setCurrentId);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,11 +68,20 @@ const FoodForm = (props) => {
         resetForm();
         addToast("Submitted successfully", { appearance: "success" });
       };
-      //if (props.currentId == 0)
-      props.createFood(inputVal, onSuccess);
-      //else props.updateDCandidate(props.currentId, values, onSuccess);
+      if (props.currentId == 0) props.createFood(inputVal, onSuccess);
+      else props.editFood(props.currentId, inputVal, onSuccess);
     }
   };
+
+  useEffect(() => {
+    if (props.currentId != 0) {
+      setInputVal({
+        ...props.foodList.find((x) => x.sysId == props.currentId),
+      });
+      setErrors({});
+    }
+  }, [props.currentId]);
+
   return (
     <div>
       <Form noValidate onSubmit={handleSubmit}>
@@ -96,6 +91,7 @@ const FoodForm = (props) => {
             type="text"
             name="foodName"
             id="foodName"
+            placeholder="Enter name"
             value={inputVal.foodName}
             onChange={inputChangeHandler}
             invalid={errors.foodName}
@@ -105,9 +101,12 @@ const FoodForm = (props) => {
         <FormGroup>
           <Label for="price">Price</Label>
           <Input
-            type="text"
+            style={pStyle}
+            type="number"
             name="price"
             id="price"
+            maxLength={9}
+            placeholder="Enter amount"
             value={inputVal.price}
             invalid={errors.price}
             onChange={inputChangeHandler}
@@ -116,7 +115,13 @@ const FoodForm = (props) => {
         </FormGroup>
         <FormGroup>
           <br />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" color="primary">
+            Submit
+          </Button>{" "}
+          ||{" "}
+          <Button color="secondary" onClick={resetForm}>
+            Reset
+          </Button>
         </FormGroup>
       </Form>
     </div>

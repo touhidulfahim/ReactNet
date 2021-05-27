@@ -61,5 +61,32 @@ namespace ReactNet.API.Controllers
         }
 
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Edit(int id, FoodModel food)
+        {
+            food.SysId = id;
+            _command.UpdateFood(food);
+            if (await _command.Commit())
+            {
+                return CreatedAtAction("GetFoodList", new { id = food.SysId }, food);
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError, "Something Went Wrong");
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteDCandidate(int id)
+        {
+            var food = await _queries.GetFoodById(id);
+            if (food == null)
+            {
+                return NotFound();
+            }
+            _command.Delete(food);
+            await _command.Commit();
+            return Ok();
+        }
+
+
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ReactNet.Data.Gateway;
 
 namespace ReactNet.Data.Repository.Command
@@ -45,5 +46,36 @@ namespace ReactNet.Data.Repository.Command
                 throw;
             }
         }
+
+        public void UpdateFood(FoodModel food)
+        {
+            try
+            {
+                _context.Entry(food).State = EntityState.Modified;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public void Delete(FoodModel food)
+        {
+            try
+            {
+                _context.Remove(food);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+
+
+
+
     }
 }

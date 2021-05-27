@@ -11,5 +11,7 @@ namespace ReactNet.Data.Repository.Command
     {
         void SaveFood(FoodModel food);
         Task<bool> Commit();
+        void UpdateFood(FoodModel food);
+        void Delete(FoodModel food);
     }
 }

@@ -41,6 +41,32 @@ export const addFood = (data, onSuccess) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+export const updateFood = (id, data, onSuccess) => (dispatch) => {
+  createAPIEndpoint(ENDPIONTS.FOOD)
+    .update(id, data)
+    .then((res) => {
+      dispatch({
+        type: actionTypes.UPDATE,
+        payload: { id, ...data },
+      });
+      onSuccess();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const deleteFood = (id, onSuccess) => (dispatch) => {
+  createAPIEndpoint(ENDPIONTS.FOOD)
+    .delete(id)
+    .then((res) => {
+      dispatch({
+        type: actionTypes.DELETE,
+        payload: id,
+      });
+      onSuccess();
+    })
+    .catch((err) => console.log(err));
+};
+
 //Customer List Start
 export const getCustomers = (customers) => {
   return {
