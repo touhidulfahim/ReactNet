@@ -109,3 +109,16 @@ export const UpdateCustomer = (id, data, onSuccess) => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const deleteCustomer = (id, onSuccess) => (dispatch) => {
+  createAPIEndpoint(ENDPIONTS.CUSTOMER)
+    .delete(id)
+    .then((res) => {
+      dispatch({
+        type: actionTypes.DELETE,
+        payload: id,
+      });
+      onSuccess();
+    })
+    .catch((err) => console.log(err));
+};

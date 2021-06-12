@@ -25,6 +25,11 @@ namespace ReactNet.Data.Repository.Command
            return true;
         }
 
+        public void Delete(CustomerModel customer)
+        {
+            _context.CustomerEntity.Remove(customer);
+        }
+
         public void SaveCustomer(CustomerModel customer)
         {
             _context.CustomerEntity.Add(customer);
@@ -34,5 +39,7 @@ namespace ReactNet.Data.Repository.Command
         {
             _context.Entry(customer).State = EntityState.Modified;
         }
+
+
     }
 }

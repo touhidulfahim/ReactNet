@@ -3,6 +3,7 @@ import * as actions from "../../redux/actionCreator/ActionCreator";
 import CustomerForm from "./CustomerForm";
 import { connect } from "react-redux";
 import { Table } from "reactstrap";
+import { useToasts } from "react-toast-notifications";
 
 const mapStateToProps = (state) => {
   return {
@@ -12,6 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapActionToProps = {
   fetchCustomer: actions.getCustomerList,
+  deleteRecord: actions.deleteCustomer,
 };
 
 const CustomerList = (props) => {
@@ -25,12 +27,13 @@ const CustomerList = (props) => {
     alert("details" + key);
   };
 
-  const updateRecord = (key) => {
-    alert("update" + key);
-  };
+  const { addToast } = useToasts();
 
-  const removeCustomer = (key) => {
-    alert("delete" + key);
+  const removeCustomer = (id) => {
+    if (window.confirm("Are you sure to delete this record?"))
+      props.deleteRecord(id, () =>
+        addToast("Deleted successfully", { appearance: "info" })
+      );
   };
 
   return (

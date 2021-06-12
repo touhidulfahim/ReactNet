@@ -53,6 +53,11 @@ export const customerReducer = (state = INITIAL_STATE, action) => {
           x.sysId == action.payload.id ? action.payload : x
         ),
       };
+    case actionTypes.DELETE:
+      return {
+        ...state,
+        customers: state.customers.filter((x) => x.sysId != action.payload),
+      };
     default:
       return state;
   }

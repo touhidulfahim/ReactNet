@@ -71,20 +71,19 @@ namespace ReactNet.API.Controllers
             }
             return StatusCode(StatusCodes.Status500InternalServerError, "Something Went Wrong");
         }
-        //
-        //
-        // [HttpDelete("{id}")]
-        // public async Task<ActionResult> DeleteDCandidate(int id)
-        // {
-        //     var food = await _queries.GetFoodById(id);
-        //     if (food == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     _command.Delete(food);
-        //     await _command.Commit();
-        //     return Ok();
-        // }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var customer = await _queries.GetCustomerById(id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            _command.Delete(customer);
+            await _command.Commit();
+            return Ok();
+        }
 
 
 

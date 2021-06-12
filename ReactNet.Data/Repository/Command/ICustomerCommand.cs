@@ -12,5 +12,6 @@ namespace ReactNet.Data.Repository.Command
         void SaveCustomer(CustomerModel customer);
         Task<bool> Commit();
         void UpdateCustomer(CustomerModel customer);
+        void Delete(CustomerModel customer);
     }
 }
