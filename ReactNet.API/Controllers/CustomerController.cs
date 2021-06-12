@@ -47,6 +47,48 @@ namespace ReactNet.API.Controllers
             return Ok(customer);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Create(CustomerModel customer)
+        {
+            _command.SaveCustomer(customer);
+            if (await _command.Commit())
+            {
+                return CreatedAtAction("GetCustomer", new { id = customer.SysId }, customer);
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError, "Something Went Wrong");
+
+        }
+
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Edit(int id, CustomerModel customer)
+        {
+            customer.SysId = id;
+            _command.UpdateCustomer(customer);
+            if (await _command.Commit())
+            {
+                return CreatedAtAction("GetCustomer", new { id = customer.SysId }, customer);
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError, "Something Went Wrong");
+        }
+        //
+        //
+        // [HttpDelete("{id}")]
+        // public async Task<ActionResult> DeleteDCandidate(int id)
+        // {
+        //     var food = await _queries.GetFoodById(id);
+        //     if (food == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     _command.Delete(food);
+        //     await _command.Commit();
+        //     return Ok();
+        // }
+
+
+
+
 
     }
 }

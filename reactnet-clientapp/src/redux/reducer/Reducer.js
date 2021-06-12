@@ -41,6 +41,18 @@ export const customerReducer = (state = INITIAL_STATE, action) => {
         ...state,
         customers: [...action.payload],
       };
+    case actionTypes.CREATE:
+      return {
+        ...state,
+        customers: [...state.customers, action.payload],
+      };
+    case actionTypes.UPDATE:
+      return {
+        ...state,
+        customers: state.customers.map((x) =>
+          x.sysId == action.payload.id ? action.payload : x
+        ),
+      };
     default:
       return state;
   }

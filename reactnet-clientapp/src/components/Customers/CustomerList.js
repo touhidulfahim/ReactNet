@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import * as actions from "../../redux/actionCreator/ActionCreator";
 import CustomerForm from "./CustomerForm";
 import { connect } from "react-redux";
 import { Table } from "reactstrap";
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     customerList: state.customerReducer.customers,
   };
@@ -16,6 +15,8 @@ const mapActionToProps = {
 };
 
 const CustomerList = (props) => {
+  const [currentId, setCurrentId] = useState(0);
+
   useEffect(() => {
     props.fetchCustomer();
   }, []);
@@ -28,7 +29,7 @@ const CustomerList = (props) => {
     alert("update" + key);
   };
 
-  const deleteRecord = (key) => {
+  const removeCustomer = (key) => {
     alert("delete" + key);
   };
 
@@ -36,7 +37,7 @@ const CustomerList = (props) => {
     <div>
       <div className="row col-md-12" style={{ marginTop: "50px" }}>
         <div className="col-md-4">
-          <CustomerForm />
+          <CustomerForm {...{ currentId, setCurrentId }} />
         </div>
         <div className="col-md-8">
           <Table className="table table-hover table-border table-sm">
@@ -67,14 +68,14 @@ const CustomerList = (props) => {
                       |
                       <a
                         className="btn btn-warning btn-sm"
-                        onClick={(key) => updateRecord(record.sysId)}
+                        onClick={() => setCurrentId(record.sysId)}
                       >
                         <i className="fa fa-pencil-square-o fa-1x"></i>
                       </a>
                       |
                       <a
                         className="btn btn-danger btn-sm"
-                        onClick={(key) => deleteRecord(record.sysId)}
+                        onClick={() => removeCustomer(record.sysId)}
                       >
                         <i
                           className="fa fa-trash-o fa-1x"

@@ -38,7 +38,6 @@ const FoodForm = ({ classes, ...props }) => {
 
   const validate = (fieldValues = inputVal) => {
     let temp = { ...errors };
-    console.log("input Val", inputVal);
     if ("foodName" in fieldValues)
       temp.foodName = fieldValues.foodName ? "" : "This field is required.";
     if ("price" in fieldValues)

@@ -83,3 +83,29 @@ export const getCustomerList = () => {
       .catch((err) => dispatch(loadingFailed(err.message)));
   };
 };
+
+export const addCustomer = (data, onSuccess) => (dispatch) => {
+  createAPIEndpoint(ENDPIONTS.CUSTOMER)
+    .create(data)
+    .then((res) => {
+      dispatch({
+        type: actionTypes.CREATE,
+        payload: res.data,
+      });
+      onSuccess();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const UpdateCustomer = (id, data, onSuccess) => (dispatch) => {
+  createAPIEndpoint(ENDPIONTS.CUSTOMER)
+    .update(id, data)
+    .then((res) => {
+      dispatch({
+        type: actionTypes.UPDATE,
+        payload: { id, ...data },
+      });
+      onSuccess();
+    })
+    .catch((err) => console.log(err));
+};
