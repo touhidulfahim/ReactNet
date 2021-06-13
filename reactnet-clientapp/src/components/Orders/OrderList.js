@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createAPIEndpoint, ENDPIONTS } from "../../api/api";
-import Table from "../../layout/Table";
+import Table from "../../layouts/Table";
 import { TableHead, TableRow, TableCell, TableBody } from "@material-ui/core";
 import DeleteOutlineTwoToneIcon from "@material-ui/icons/DeleteOutlineTwoTone";
 
@@ -15,7 +15,6 @@ export default function OrderList(props) {
       .fetchAll()
       .then((res) => {
         setOrderList(res.data);
-        console.log(res);
       })
       .catch((err) => console.log(err));
   }, []);

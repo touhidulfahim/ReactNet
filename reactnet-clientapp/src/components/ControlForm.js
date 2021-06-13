@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const ControlForm = (initialFieldValues, validate, setCurrentId) => {
   const [inputVal, setInputVal] = useState(initialFieldValues);
+  //const [values, setValues] = useState(getFreshModelObject());
   const [errors, setErrors] = useState({});
 
   const inputChangeHandler = (e) => {
@@ -15,6 +16,7 @@ const ControlForm = (initialFieldValues, validate, setCurrentId) => {
   };
 
   const resetForm = () => {
+    //setValues(getFreshModelObject());
     setInputVal({
       ...initialFieldValues,
     });
